@@ -56,6 +56,14 @@ module UPS
         access_request << element_with_value('Password', password)
       end
 
+      # Adds an InsuranceCharges section to the XML document being built
+      #
+      # @param [String] value The MonetaryValue of the InsuranceCharge
+      # @return [void]
+      def add_insurance_charge(value)
+        shipment_root << insurance_charge(value)
+      end
+
       # Adds a Request section to the XML document being built
       #
       # @param [String] action The UPS API Action requested
@@ -204,6 +212,10 @@ module UPS
 
       def code_description(name, code, description)
         multi_valued(name, Code: code, Description: description)
+      end
+
+      def insurance_charge(value)
+        multi_valued('InsuranceCharges', MonetaryValue: value)
       end
 
       def multi_valued(name, params)

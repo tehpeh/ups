@@ -11,6 +11,7 @@ class UPS::Builders::TestRateBuilder < Minitest::Test
       builder.add_ship_to ship_to
       builder.add_ship_from shipper
       builder.add_package package
+      builder.add_insurance_charge '5.00'
     end
   end
 

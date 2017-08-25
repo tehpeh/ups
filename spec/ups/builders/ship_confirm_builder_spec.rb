@@ -14,6 +14,7 @@ class UPS::Builders::TestShipConfirmBuilder < Minitest::Test
       builder.add_label_specification 'gif', { height: '100', width: '100' }
       builder.add_description 'Los Pollo Hermanos'
       builder.add_reference_number reference_number
+      builder.add_insurance_charge '5.00'
     end
   end
 
