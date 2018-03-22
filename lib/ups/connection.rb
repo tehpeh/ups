@@ -18,6 +18,7 @@ module UPS
     LIVE_URL = 'https://onlinetools.ups.com'
 
     RATE_PATH = '/ups.app/xml/Rate'
+    VOID_PATH = '/ups.app/xml/Void'
     SHIP_CONFIRM_PATH = '/ups.app/xml/ShipConfirm'
     SHIP_ACCEPT_PATH = '/ups.app/xml/ShipAccept'
     ADDRESS_PATH = '/ups.app/xml/XAV'
@@ -80,6 +81,18 @@ module UPS
       accept_builder = build_accept_request_from_confirm(confirm_builder,
                                                          confirm_response)
       make_accept_request accept_builder
+    end
+
+    def void(void_builder = nil)
+      if void_builder.nil? && block_given?
+        void_builder = UPS::Builders::VoidShipmentBuilder.new
+        yield void_builder
+      end
+
+      response = get_response_stream VOID_PATH, void_builder.to_xml
+      UPS::Parsers::VoidShipmentParser.new.tap do |parser|
+        Ox.sax_parse(parser, response)
+      end
     end
 
     private
