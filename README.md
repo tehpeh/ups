@@ -60,7 +60,7 @@ end
 ```ruby
 require 'ups-ruby'
 server = UPS::Connection.new(test_mode: true)
-ship_response = server.ship do |shipment_builder|
+response = server.ship do |shipment_builder|
   shipment_builder.add_access_request 'API_KEY', 'USERNAME', 'PASSWORD'
   shipment_builder.add_shipper company_name: 'Veeqo Limited',
     phone_number: '01792 123456',
@@ -110,7 +110,7 @@ response.tracking_number
 ```ruby
 require 'ups-ruby'
 server = UPS::Connection.new(test_mode: true)
-ship_response = server.ship do |shipment_builder|
+response = server.ship do |shipment_builder|
   shipment_builder.add_access_request 'API_KEY', 'USERNAME', 'PASSWORD'
   shipment_builder.add_shipper company_name: 'Veeqo Limited',
     phone_number: '01792 123456',
