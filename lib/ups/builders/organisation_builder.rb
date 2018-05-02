@@ -28,6 +28,13 @@ module UPS
         self.opts = opts
       end
 
+      # Returns an XML representation of customer_name
+      #
+      # @return [Ox::Element] XML representation of customer_name
+      def customer_name
+        element_with_value('Name', opts[:company_name][0..34])
+      end
+
       # Returns an XML representation of company_name
       #
       # @return [Ox::Element] XML representation of company_name
@@ -63,6 +70,7 @@ module UPS
       # @return [Ox::Element] XML representation of the current object
       def to_xml
         Element.new(name).tap do |org|
+          org << customer_name if name == 'ShipTo'
           org << company_name
           org << phone_number
           org << attention_name

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ups="http://www.ups.com/XMLSchema" elementFormDefault="unqualified" version="201601">
+  <!-- START - modified from source download -->
+  <!-- this element was missing from downloaded VoidShipmentRequest.xsd but -->
+  <!-- was present in examples and is required to receive a successful response -->
+  <xsd:element name="AccessRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="AccessLicenseNumber" type="xsd:string"/>
+        <xsd:element name="UserId" type="xsd:string"/>
+        <xsd:element name="Password" type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <!-- END - modified from source download -->
+  <xsd:element name="VoidShipmentRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Request" type="RequestType"/>
+        <xsd:choice>
+          <xsd:element name="ShipmentIdentificationNumber" type="xsd:string"/>
+          <xsd:element name="ExpandedVoidShipment" type="ExpandedVoidShipmentType"/>
+        </xsd:choice>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="ExpandedVoidShipmentType">
+    <xsd:sequence>
+      <xsd:element name="ShipmentIdentificationNumber" type="xsd:string"/>
+      <xsd:element name="TrackingNumber" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="RequestType">
+    <xsd:sequence>
+      <xsd:sequence>
+        <xsd:element name="TransactionReference" type="TransactionReferenceType" minOccurs="0"/>
+        <xsd:element name="RequestAction" type="xsd:string"/>
+        <xsd:element name="RequestOption" type="xsd:string" minOccurs="0" ups:usage="notused"/>
+      </xsd:sequence>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="TransactionReferenceType">
+    <xsd:sequence>
+      <xsd:element name="CustomerContext" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ToolVersion" type="xsd:string" minOccurs="0" ups:usage="notused"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>
