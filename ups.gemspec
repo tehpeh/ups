@@ -2,7 +2,7 @@ require File.expand_path('../lib/ups/version', __FILE__)
 require 'English'
 
 Gem::Specification.new do |gem|
-  gem.name        = 'ups-ruby'
+  gem.name        = 'sellect-ups-ruby'
   gem.version     = UPS::Version::STRING
   gem.platform    = Gem::Platform::RUBY
   gem.authors     = ['Veeqo']
