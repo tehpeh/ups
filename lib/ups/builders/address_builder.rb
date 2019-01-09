@@ -102,7 +102,8 @@ module UPS
       #
       # @return [Ox::Element] XML representation of the postal_code address part
       def postal_code
-        element_with_value('PostalCode', opts[:postal_code][0..9])
+        data = opts.fetch(:postal_code, '')[0..9]
+        element_with_value('PostalCode', data)
       end
 
       # Returns an XML representation of country
