@@ -15,6 +15,7 @@ module UPS
       # Initializes a new {AddressBuilder} object
       #
       # @param [Hash] opts The Address Parts
+      # @option opts [Bool] :residential Residential Address Indicator
       # @option opts [String] :address_line_1 Address Line 1
       # @option opts [String] :city City
       # @option opts [String] :state State
@@ -120,11 +121,24 @@ module UPS
         element_with_value('EmailAddress', opts[:email_address][0..49])
       end
 
+      # Residential address indicator
+      # Only add to XML request iff indicator is true, skip otherwise
+      #
+      # @return [Ox::Element] XML representation of the residential address indicator
+      def residential_address
+        if opts[:residential]
+          element_with_value('ResidentialAddressIndicator', '1')
+        else
+          ''
+        end
+      end
+
       # Returns an XML representation of a UPS Address
       #
       # @return [Ox::Element] XML representation of the current object
       def to_xml
         Element.new('Address').tap do |address|
+          address << residential_address
           address << address_line_1
           address << address_line_2
           address << email_address if opts[:email_address]
