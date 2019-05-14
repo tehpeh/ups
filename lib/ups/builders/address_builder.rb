@@ -15,7 +15,6 @@ module UPS
       # Initializes a new {AddressBuilder} object
       #
       # @param [Hash] opts The Address Parts
-      # @option opts [Bool] :residential Residential Address Indicator
       # @option opts [String] :address_line_1 Address Line 1
       # @option opts [String] :city City
       # @option opts [String] :state State
