@@ -128,6 +128,7 @@ module UPS
           # By setting the residential address indicator tag.
           # We can trigger UPS to check for any surcharge related to that area
           # and apply the charge automically.
+          # ** WARNING: The usage of an empty flag is not inlcuded in UPS's documentation, subject to future changes.
           address << element_with_value('ResidentialAddressIndicator', '')
           address << address_line_1
           address << address_line_2
