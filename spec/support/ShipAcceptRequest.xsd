@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ups="http://www.ups.com/XMLSchema" elementFormDefault="qualified">
-	<xsd:element name="AccessRequest">
-		<xsd:complexType>
-			<xsd:sequence>
-				<xsd:element name="AccessLicenseNumber" type="xsd:string"/>
-				<xsd:element name="UserId" type="xsd:string"/>
-				<xsd:element name="Password" type="xsd:string"/>
-			</xsd:sequence>
-		</xsd:complexType>
-	</xsd:element>
+<xsd:schema xmlns:ups="http://www.ups.com/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" version="201601">
 	<xsd:element name="ShipmentAcceptRequest">
 		<xsd:complexType>
 			<xsd:sequence>
@@ -21,16 +12,14 @@
 		<xsd:sequence>
 			<xsd:sequence>
 				<xsd:element name="RequestAction" type="xsd:string"/>
-
-				<xsd:element minOccurs="0" name="TransactionReference" type="TransactionReferenceType"/>
+				<xsd:element name="SubVersion" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="TransactionReference" type="TransactionReferenceType" minOccurs="0"/>
 			</xsd:sequence>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:complexType name="TransactionReferenceType">
 		<xsd:sequence>
-			<xsd:element minOccurs="0" name="CustomerContext" type="xsd:string"/>
-
-
+			<xsd:element name="CustomerContext" type="xsd:string" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
 </xsd:schema>
