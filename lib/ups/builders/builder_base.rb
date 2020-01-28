@@ -186,6 +186,13 @@ module UPS
           end
       end
 
+      # Adds Direct Delivery Only indicator to the shipment service options
+      #
+      # @return [void]
+      def add_shipment_direct_delivery_only
+        shipment_service_options << Element.new('DirectDeliveryOnlyIndicator')
+      end
+
       # Returns a String representation of the XML document being built
       #
       # @return [String]
