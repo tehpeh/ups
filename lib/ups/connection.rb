@@ -72,6 +72,8 @@ module UPS
         yield confirm_builder
       end
 
+      confirm_builder.update_and_validate_for_worldwide_economy!
+
       confirm_response = make_confirm_request(confirm_builder)
       return confirm_response unless confirm_response.success?
 

@@ -23,6 +23,7 @@ module ShippingOptions
       city: 'London',
       state: 'England',
       postal_code: 'WC2H 8AG',
+      email_address: 'test@example.com',
       country: 'GB'
     }
   end
