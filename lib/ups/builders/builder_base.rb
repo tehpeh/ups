@@ -203,6 +203,20 @@ module UPS
         shipment_service_options << Element.new('DirectDeliveryOnlyIndicator')
       end
 
+      # Adds MasterCartonIndicator to the shipment
+      #
+      # @return [void]
+      def add_master_carton_indicator
+        shipment_root << Element.new('MasterCartonIndicator')
+      end
+
+      # Adds MasterCartonID to the shipment
+      #
+      # @return [void]
+      def add_master_carton_id(master_carton_id)
+        shipment_root << element_with_value('MasterCartonID', master_carton_id)
+      end
+
       # Returns a String representation of the XML document being built
       #
       # @return [String]

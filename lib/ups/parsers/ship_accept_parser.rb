@@ -42,7 +42,11 @@ module UPS
         [UPS::Models::PackageResult.new(package_results)]
       end
 
-      def total_charge 
+      def master_carton_id
+        shipment_results[:MasterCartonID]
+      end
+
+      def total_charge
         return shipment_charge unless negotiated_rate
 
         negotiated_rate
@@ -52,7 +56,7 @@ module UPS
         negotiated_rate_response && negotiated_rate_response[:NetSummaryCharges][:GrandTotal][:MonetaryValue].to_f
       end
 
-      def currency_code 
+      def currency_code
         shipment_results[:ShipmentCharges][:TotalCharges][:CurrencyCode]
       end
 
