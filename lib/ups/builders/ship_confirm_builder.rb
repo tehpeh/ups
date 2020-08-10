@@ -16,7 +16,7 @@ module UPS
       def initialize
         super 'ShipmentConfirmRequest'
 
-        add_request 'ShipConfirm', 'validate'
+        add_request 'ShipConfirm', 'validate', sub_version: '1807'
       end
 
       # Adds a LabelSpecification section to the XML document being built
