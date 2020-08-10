@@ -69,10 +69,14 @@ module UPS
       # @param [String] action The UPS API Action requested
       # @param [String] option The UPS API Option
       # @return [void]
-      def add_request(action, option)
+      def add_request(action, option, sub_version: nil)
         root << Element.new('Request').tap do |request|
           request << element_with_value('RequestAction', action)
           request << element_with_value('RequestOption', option)
+
+          unless sub_version.nil?
+            request << element_with_value('SubVersion', sub_version)
+          end
         end
       end
 
