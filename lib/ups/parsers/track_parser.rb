@@ -36,7 +36,7 @@ module UPS
       end
 
       def latest_activity
-        activities.first
+        activities.sort_by {|a| [a[:GMTDate], a[:GMTTime]] }.last
       end
 
       def activities
