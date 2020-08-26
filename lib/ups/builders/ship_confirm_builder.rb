@@ -79,8 +79,6 @@ module UPS
       end
 
       def update_and_validate_for_worldwide_economy!
-        return unless ['17', '72'].include?(service_code)
-
         shipment_charge << element_with_value('Type', '01')
 
         packages = document.locate('ShipmentConfirmRequest/Shipment/Package')
