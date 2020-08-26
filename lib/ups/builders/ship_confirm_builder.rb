@@ -83,8 +83,6 @@ module UPS
 
         packages = document.locate('ShipmentConfirmRequest/Shipment/Package')
 
-        consignee_email = document.locate('ShipmentConfirmRequest/Shipment/ShipTo/EMailAddress/*').first
-
         bill_shipper_account_number = document.locate(
           'ShipmentConfirmRequest/Shipment/ItemizedPaymentInformation/ShipmentCharge/BillShipper/AccountNumber/*'
         ).first
@@ -102,11 +100,6 @@ module UPS
         unless bill_shipper_account_number.to_s.length > 0
           raise InvalidAttributeError,
             'Worldwide Economy shipment must have "Bill Shipper" Itemized Payment Information'
-        end
-
-        unless consignee_email.to_s.length > 0
-          raise InvalidAttributeError,
-            'Worldwide Economy shipment must have Consignee Email address'
         end
       end
 
