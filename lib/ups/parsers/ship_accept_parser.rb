@@ -41,12 +41,30 @@ module UPS
 
         [UPS::Models::PackageResult.new(package_results)]
       end
-
+      
       def master_carton_id
         shipment_results[:MasterCartonID]
       end
 
+      def total_cost 
+        return shipment_charge unless negotiated_rate
+
+        negotiated_rate
+      end
+
+      def negotiated_rate
+        negotiated_rate_response && negotiated_rate_response[:NetSummaryCharges][:GrandTotal][:MonetaryValue].to_f
+      end
+
       private
+
+      def negotiated_rate_response
+        shipment_results[:NegotiatedRates]
+      end
+
+      def shipment_charge
+        shipment_results[:ShipmentCharges][:TotalCharges][:MonetaryValue].to_f
+      end
 
       def form_graphic
         shipment_results[:Form]

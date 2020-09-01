@@ -15,6 +15,7 @@ describe UPS::Connection do
 
   let(:stub_path) { File.expand_path("../../../stubs", __FILE__) }
   let(:server) { UPS::Connection.new(test_mode: true) }
+  let(:ship_accept_stub_file) { 'ship_accept_success' }
 
   describe 'if requesting a shipment' do
     describe 'single package shipment' do
@@ -27,7 +28,7 @@ describe UPS::Connection do
             }
           when UPS::Connection::SHIP_ACCEPT_PATH
             {
-              body: File.read("#{stub_path}/ship_accept_success.xml"), status: 200
+              body: File.read("#{stub_path}/#{ship_accept_stub_file}.xml"), status: 200
             }
           end
         end
@@ -79,6 +80,22 @@ describe UPS::Connection do
 
       it 'should return the tracking number' do
         subject.tracking_number.must_equal '1Z2220060292353829'
+      end
+
+      describe 'total shipment cost' do
+        describe 'with negotiated rates' do
+          it 'returns the total shipment cost' do
+            subject.total_cost.must_equal 115.14
+          end
+        end 
+
+        describe 'without negotiated rates' do
+          let(:ship_accept_stub_file) { 'ship_accept_success_without_negotiated_price' }
+
+          it 'returns the total shipment cost' do
+            subject.total_cost.must_equal 118.48
+          end
+        end
       end
     end
 
