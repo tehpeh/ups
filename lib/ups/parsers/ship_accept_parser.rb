@@ -46,7 +46,11 @@ module UPS
         shipment_results[:MasterCartonID]
       end
 
-      def total_cost 
+      def currency_code 
+        shipment_results[:ShipmentCharges][:TotalCharges][:CurrencyCode]
+      end
+
+      def total_charge 
         return shipment_charge unless negotiated_rate
 
         negotiated_rate

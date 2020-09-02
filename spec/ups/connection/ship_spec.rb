@@ -85,7 +85,8 @@ describe UPS::Connection do
       describe 'total shipment cost' do
         describe 'with negotiated rates' do
           it 'returns the total shipment cost' do
-            subject.total_cost.must_equal 115.14
+            subject.total_charge.must_equal 115.14
+            subject.currency_code.must_equal 'USD'
           end
         end 
 
@@ -93,7 +94,8 @@ describe UPS::Connection do
           let(:ship_accept_stub_file) { 'ship_accept_success_without_negotiated_price' }
 
           it 'returns the total shipment cost' do
-            subject.total_cost.must_equal 118.48
+            subject.total_charge.must_equal 118.48
+            subject.currency_code.must_equal 'USD'
           end
         end
       end
