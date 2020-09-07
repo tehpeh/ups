@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ups-ruby (0.17.0)
+    ups-ruby (0.18.1)
       excon (~> 0.45, >= 0.45.3)
       insensitive_hash (~> 0.3.3)
       levenshtein-ffi (~> 1.1)
@@ -14,7 +14,7 @@ GEM
       simplecov
     docile (1.1.5)
     excon (0.73.0)
-    ffi (1.12.2)
+    ffi (1.13.1)
     insensitive_hash (0.3.3)
     json (1.8.6)
     levenshtein-ffi (1.1.0)
