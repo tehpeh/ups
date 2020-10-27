@@ -71,9 +71,9 @@ module UPS
       # @return [Ox::Element] XML representation of the current object
       def to_xml
         Element.new(name).tap do |org|
-          org << company_name
-          org << phone_number
-          org << attention_name
+          org << company_name if opts[:company_name]
+          org << phone_number if opts[:phone_number]
+          org << attention_name if opts[:attention_name]
           org << address
           org << tax_identification_number
         end
