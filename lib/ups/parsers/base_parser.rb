@@ -37,6 +37,7 @@ module UPS
       end
 
       def build_error_description(errors_node)
+        return unless errors_node
         return errors_node.last[:ErrorDescription] if errors_node.is_a?(Array)
 
         errors_node[:ErrorDescription]
