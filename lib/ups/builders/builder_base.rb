@@ -69,10 +69,14 @@ module UPS
       # @param [String] action The UPS API Action requested
       # @param [String] option The UPS API Option
       # @return [void]
-      def add_request(action, option)
+      def add_request(action, option, sub_version: nil)
         root << Element.new('Request').tap do |request|
           request << element_with_value('RequestAction', action)
           request << element_with_value('RequestOption', option)
+
+          unless sub_version.nil?
+            request << element_with_value('SubVersion', sub_version)
+          end
         end
       end
 
@@ -169,6 +173,12 @@ module UPS
         end
       end
 
+      def add_itemized_payment_information(ship_number)
+        shipment_charge << Element.new('BillShipper').tap do |bill_shipper|
+          bill_shipper << element_with_value('AccountNumber', ship_number)
+        end
+      end
+
       # Adds a RateInformation/NegotiatedRatesIndicator section to the XML
       # document being built
       #
@@ -197,6 +207,20 @@ module UPS
         shipment_service_options << Element.new('DirectDeliveryOnlyIndicator')
       end
 
+      # Adds MasterCartonIndicator to the shipment
+      #
+      # @return [void]
+      def add_master_carton_indicator
+        shipment_root << Element.new('MasterCartonIndicator')
+      end
+
+      # Adds MasterCartonID to the shipment
+      #
+      # @return [void]
+      def add_master_carton_id(master_carton_id)
+        shipment_root << element_with_value('MasterCartonID', master_carton_id)
+      end
+
       # Returns a String representation of the XML document being built
       #
       # @return [String]
@@ -219,6 +243,14 @@ module UPS
           Element.new('ShipmentServiceOptions').tap do |element|
             shipment_root << element
           end
+        end
+      end
+
+      def shipment_charge
+        @shipment_charge ||= begin
+          element = Element.new('ShipmentCharge')
+          shipment_root << (Element.new('ItemizedPaymentInformation') << element)
+          element
         end
       end
 

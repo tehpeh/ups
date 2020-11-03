@@ -16,7 +16,7 @@ module UPS
       def initialize
         super 'ShipmentConfirmRequest'
 
-        add_request 'ShipConfirm', 'validate'
+        add_request 'ShipConfirm', 'validate', sub_version: '1807'
       end
 
       # Adds a LabelSpecification section to the XML document being built
@@ -78,6 +78,31 @@ module UPS
         shipment_root << reference_number(opts[:code], opts[:value])
       end
 
+      def update_and_validate_for_worldwide_economy!
+        shipment_charge << element_with_value('Type', '01')
+
+        packages = document.locate('ShipmentConfirmRequest/Shipment/Package')
+
+        bill_shipper_account_number = document.locate(
+          'ShipmentConfirmRequest/Shipment/ItemizedPaymentInformation/ShipmentCharge/BillShipper/AccountNumber/*'
+        ).first
+
+        unless packages.count == 1
+          raise InvalidAttributeError,
+            'Worldwide Economy shipment must be single-piece'
+        end
+
+        unless packages.first.locate('PackagingType/Code/*').first == '02'
+          raise InvalidAttributeError,
+            'Worldwide Economy shipment must use Customer Supplied Package'
+        end
+
+        unless bill_shipper_account_number.to_s.length > 0
+          raise InvalidAttributeError,
+            'Worldwide Economy shipment must have "Bill Shipper" Itemized Payment Information'
+        end
+      end
+
       private
 
       def gif?(string)
@@ -116,6 +141,10 @@ module UPS
         multi_valued('InvoiceLineTotal',
                      'CurrencyCode' => currency_code.to_s,
                      'MonetaryValue' => value.to_s)
+      end
+
+      def service_code
+        document.locate('ShipmentConfirmRequest/Shipment/Service/Code/*').first
       end
     end
   end
