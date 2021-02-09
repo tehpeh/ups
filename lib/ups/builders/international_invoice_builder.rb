@@ -34,6 +34,10 @@ module UPS
         element_with_value('TermsOfShipment', opts[:terms_of_shipment])
       end
 
+      def declaration_statement
+        element_with_value('DeclarationStatement', opts[:declaration_statement])
+      end    
+
       def reason_for_export
         element_with_value('ReasonForExport', opts[:reason_for_export])
       end
