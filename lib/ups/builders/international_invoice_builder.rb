@@ -73,6 +73,7 @@ module UPS
           international_form << invoice_number if opts[:invoice_number]
           international_form << invoice_date
           international_form << terms_of_shipment if opts[:terms_of_shipment]
+          international_form << declaration_statement if opts[:declaration_statement]
           international_form << reason_for_export
           international_form << currency_code
           international_form << freight_charge
