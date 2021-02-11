@@ -34,6 +34,10 @@ module UPS
         element_with_value('TermsOfShipment', opts[:terms_of_shipment])
       end
 
+      def declaration_statement
+        element_with_value('DeclarationStatement', opts[:declaration_statement])
+      end    
+
       def reason_for_export
         element_with_value('ReasonForExport', opts[:reason_for_export])
       end
@@ -69,6 +73,7 @@ module UPS
           international_form << invoice_number if opts[:invoice_number]
           international_form << invoice_date
           international_form << terms_of_shipment if opts[:terms_of_shipment]
+          international_form << declaration_statement if opts[:declaration_statement]
           international_form << reason_for_export
           international_form << currency_code
           international_form << freight_charge

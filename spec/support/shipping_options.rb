@@ -95,6 +95,7 @@ module ShippingOptions
       invoice_date: '20170816',
       reason_for_export: '',
       terms_of_shipment: 'DDP',
+      declaration_statement: 'U.S Customs (Freeform text)',
       currency_code: 'USD',
       discount: '1',
       freight_charge: '1',
