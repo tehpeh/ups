@@ -38,6 +38,7 @@ module UPS
     autoload :InternationalInvoiceProductBuilder, 'ups/builders/international_invoice_product_builder'
     autoload :ShipAcceptBuilder,                  'ups/builders/ship_accept_builder'
     autoload :OrganisationBuilder,                'ups/builders/organisation_builder'
+    autoload :PackageBuilder,                     'ups/builders/package_builder'
     autoload :ShipperBuilder,                     'ups/builders/shipper_builder'
   end
 end

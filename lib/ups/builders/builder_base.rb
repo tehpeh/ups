@@ -147,16 +147,7 @@ module UPS
       # @param [Hash] opts A Hash of data to build the requested section
       # @return [void]
       def add_package(opts = {})
-        shipment_root << Element.new('Package').tap do |org|
-          org << packaging_type(opts[:packaging_type] || customer_supplied_packaging)
-          org << element_with_value('Description', 'Rate')
-          org << package_weight(opts[:weight], opts[:unit])
-          org << package_dimensions(opts[:dimensions]) if opts[:dimensions]
-        end
-      end
-
-      def customer_supplied_packaging
-        {code: '02', description: 'Customer Supplied Package'}
+        shipment_root << PackageBuilder.new('Package', opts).to_xml
       end
 
       # Adds a PaymentInformation section to the XML document being built
@@ -251,26 +242,6 @@ module UPS
           element = Element.new('ShipmentCharge')
           shipment_root << (Element.new('ItemizedPaymentInformation') << element)
           element
-        end
-      end
-
-      def packaging_type(packaging_options_hash)
-        code_description 'PackagingType', packaging_options_hash[:code], packaging_options_hash[:description]
-      end
-
-      def package_weight(weight, unit)
-        Element.new('PackageWeight').tap do |org|
-          org << unit_of_measurement(unit)
-          org << element_with_value('Weight', weight)
-        end
-      end
-
-      def package_dimensions(dimensions)
-        Element.new('Dimensions').tap do |org|
-          org << unit_of_measurement(dimensions[:unit])
-          org << element_with_value('Length', dimensions[:length].to_s[0..8])
-          org << element_with_value('Width', dimensions[:width].to_s[0..8])
-          org << element_with_value('Height', dimensions[:height].to_s[0..8])
         end
       end
 
