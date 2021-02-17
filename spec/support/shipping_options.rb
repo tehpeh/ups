@@ -30,6 +30,10 @@ module ShippingOptions
 
   def package
     {
+      reference_number: {
+        value: 'GB393023098',
+        type: 'TN'
+      },
       weight: '0.5',
       unit: 'KGS',
       dimensions: {
@@ -43,6 +47,9 @@ module ShippingOptions
 
   def large_package
     {
+      reference_number: {
+        value: 'GB393023098'
+      },
       weight: '1',
       unit: 'KGS',
       dimensions: {
