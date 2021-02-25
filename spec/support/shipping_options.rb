@@ -34,6 +34,10 @@ module ShippingOptions
         value: 'GB393023098',
         type: 'TN'
       },
+      reference_number_2: {
+        value: '#3403',
+        type: 'IK'
+      },
       weight: '0.5',
       unit: 'KGS',
       dimensions: {
