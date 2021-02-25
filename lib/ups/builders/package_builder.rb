@@ -23,6 +23,13 @@ module UPS
         end
       end
 
+      def order_number
+        Element.new('ReferenceNumber').tap do |org|
+          org << element_with_value('Code', opts[:order_number][:type]) if opts[:order_number][:type]
+          org << element_with_value('Value', opts[:order_number][:value])
+        end
+      end
+
       def description
         element_with_value('Description', 'Rate')
       end
@@ -50,6 +57,7 @@ module UPS
       def to_xml
         Element.new(name).tap do |product|
           product << reference_number if opts[:reference_number]
+          product << order_number if opts[:order_number]
           product << packaging_type(opts[:packaging_type] || customer_supplied_packaging)
           product << description
           product << package_weight(opts[:weight], opts[:unit])

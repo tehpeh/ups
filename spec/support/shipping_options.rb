@@ -34,6 +34,10 @@ module ShippingOptions
         value: 'GB393023098',
         type: 'TN'
       },
+      order_number: {
+        value: '#3403',
+        type: 'ON'
+      },
       weight: '0.5',
       unit: 'KGS',
       dimensions: {
