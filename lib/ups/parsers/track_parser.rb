@@ -17,6 +17,10 @@ module UPS
         }
       end
 
+      def activities
+        normalize_response_into_array(root_response[:Shipment][:Package][:Activity])
+      end
+
       def status_date
         Date.parse(latest_activity[:Date])
       end
@@ -37,10 +41,6 @@ module UPS
 
       def latest_activity
         activities.sort_by {|a| [a[:GMTDate], a[:GMTTime]] }.last
-      end
-
-      def activities
-        normalize_response_into_array(root_response[:Shipment][:Package][:Activity])
       end
 
       def root_response
