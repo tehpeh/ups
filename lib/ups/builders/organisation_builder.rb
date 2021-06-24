@@ -95,7 +95,7 @@ module UPS
           org << address
           org << tax_identification_number
           org << email_address
-          org << vendor_info
+          org << vendor_info unless opts[:sender_ioss_number].to_s.empty?
         end
       end
     end
