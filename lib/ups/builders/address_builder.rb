@@ -125,6 +125,10 @@ module UPS
       # @return [Ox::Element] XML representation of the current object
       def to_xml
         Element.new('Address').tap do |address|
+          # By setting the residential address indicator tag.
+          # We can trigger UPS to check for any surcharge related to that area
+          # and apply the charge automically.
+          address << element_with_value('ResidentialAddressIndicator', '')
           address << address_line_1
           address << address_line_2
           address << email_address if opts[:email_address]
