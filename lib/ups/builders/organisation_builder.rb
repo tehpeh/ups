@@ -77,9 +77,11 @@ module UPS
       #
       # @return [Ox::Element] XML representation of sender_ioss_number
       def vendor_info
+        ioss_vendor_collect_id = '0356'
+
         Element.new('VendorInfo').tap do |vendor_info|
           vendor_info << element_with_value('VendorCollectIDNumber', opts[:sender_ioss_number] || '')
-          vendor_info << element_with_value('VendorCollectIDTypeCode', '0356')
+          vendor_info << element_with_value('VendorCollectIDTypeCode', ioss_vendor_collect_id)
           vendor_info << element_with_value('ConsigneeType', '02')
         end
       end
