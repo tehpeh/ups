@@ -73,6 +73,19 @@ module UPS
         AddressBuilder.new(opts).to_xml
       end
 
+      # Returns an XML representation of vendor info (ioss number and more) of the company
+      #
+      # @return [Ox::Element] XML representation of sender_ioss_number
+      def vendor_info
+        ioss_vendor_collect_id = '0356'
+
+        Element.new('VendorInfo').tap do |vendor_info|
+          vendor_info << element_with_value('VendorCollectIDNumber', opts[:sender_ioss_number] || '')
+          vendor_info << element_with_value('VendorCollectIDTypeCode', ioss_vendor_collect_id)
+          vendor_info << element_with_value('ConsigneeType', '02')
+        end
+      end
+
       # Returns an XML representation of a UPS Organization
       #
       # @return [Ox::Element] XML representation of the current object
@@ -84,6 +97,7 @@ module UPS
           org << address
           org << tax_identification_number
           org << email_address
+          org << vendor_info unless opts[:sender_ioss_number].to_s.empty?
         end
       end
     end
